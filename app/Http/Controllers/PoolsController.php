@@ -75,10 +75,16 @@ class PoolsController extends Controller
             if($validate->fails()){
                 return ResponseGenerator::generateResponse("KO", 422, null, $validate->errors()->all());
             }else {
+                $filteredMatches = [];
+                foreach($data->matches as $match){
+                    $match->awayId = Team::find($match->awayId);
+                    $match->homeId = Team::find($match->homeId);
+                    $filteredMatches[] = $match;
+                }
                 
                 $pool = new Pool();
                 $pool->name = $data->name;
-                $pool->matches = json_encode($data->matches);
+                $pool->matches = json_encode($filteredMatches);
                 $pool->finalDate = $data->finalDate;
 
                 try{

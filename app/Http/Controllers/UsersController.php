@@ -669,17 +669,17 @@ class UsersController extends Controller
     public function getUserData(){
         $user = auth()->user();
 
-        $allParticipations = DB::table('event_user')
-        ->join('events', 'event_user.event_id', '=', 'events.id')
+        $allParticipations = DB::table('participations')
+        ->join('events', 'participations.event_id', '=', 'events.id')
         ->where('user_id', '=', $user->id)
-        ->select('event_user.*', 'events.sport')
+        ->select('participations.*', 'events.sport')
         ->get();
 
-        $streak = DB::table('event_user')
-        ->join('events', 'event_user.event_id', '=', 'events.id')
+        $streak = DB::table('participations')
+        ->join('events', 'participations.event_id', '=', 'events.id')
         ->where('user_id', '=', $user->id)
-        ->orderBy('event_user.id', 'desc')->take(5)
-        ->select('event_user.result')
+        ->orderBy('participations.id', 'desc')->take(5)
+        ->select('participations.result')
         ->get();
 
         $finalStats = [
