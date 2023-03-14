@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Pool;
 use App\Models\User;
 use App\Models\PoolEvent;
+use App\Models\Team;
 use App\Models\PoolParticipation;
 use App\Models\Notification;
 use App\Models\SpecialPoolEvent;
@@ -77,9 +78,11 @@ class PoolsController extends Controller
             }else {
                 $filteredMatches = [];
                 foreach($data->matches as $match){
-                    $match->awayId = Team::find($match->awayId);
-                    $match->homeId = Team::find($match->homeId);
-                    $filteredMatches[] = $match;
+                    $newPoolEvent = new PoolEvent();
+                    $newPoolEvent->homeTeam = Team::find($match->homeId);
+                    $newPoolEvent->awayTeam = Team::find($match->awayId);
+                    $newPoolEvent->date = $match->date;
+                    $filteredMatches[] = $newPoolEvent;
                 }
                 
                 $pool = new Pool();
