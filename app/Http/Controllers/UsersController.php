@@ -169,7 +169,7 @@ class UsersController extends Controller
                 $user->username = $data->username;
                 $user->email = $data->email;
                 $user->password = Hash::make($data->password);
-                $user->coins = 0;
+                $user->coins = 2000;
                 $user->followers = 0;
     
                 try{
