@@ -77,7 +77,7 @@ class CoinsDealer implements ShouldQueue
                             $updateParticipation->save();
                         }
     
-                    }else if ($participation->user_id != $user->id && $participation->team_selected != $participation->winner){
+                    }else if ($participation->user_id == $user->id && $participation->team_selected != $participation->winner){
                         $newNotification = new Notification();
                         $newNotification->user_id = $participation->user_id;
                         $newNotification->text = "Perdiste en el evento: " . $participation->homeName . ' vs ' . $participation->awayName;

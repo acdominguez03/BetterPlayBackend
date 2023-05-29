@@ -370,7 +370,7 @@ class EventsController extends Controller
                 }
             }
             
-            CoinsDealer::dispatch();
+            CoinsDealer::dispatch()->onQueue('bets');
             
             return ResponseGenerator::generateResponse("OK", 200, null, ["Evento finalizado"]);
         }
