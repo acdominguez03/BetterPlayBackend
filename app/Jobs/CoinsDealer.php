@@ -51,7 +51,7 @@ class CoinsDealer implements ShouldQueue
         
         foreach($users as $user) {
             foreach($participations as $participation) {
-                if($participation->sent == 0 && $participation->finalDate <= $current_time){
+                if($participation->sent == 0){
                     if($participation->user_id == $user->id && $participation->team_selected == $participation->winner){
                         $newNotification = new Notification();
                         $newNotification->user_id = $participation->user_id;
